@@ -5,7 +5,7 @@
 [Qtum RPC API](https://docs.qtum.site/en/Qtum-RPC-API/)
 
 ## Qtum Explorer
-[qtum info](https://qtum.info/)
+[qtum info](https://qtum.info/)  
 [qtumblockexplorer](https://qtumblockexplorer.com/)
 
 ## Build method
