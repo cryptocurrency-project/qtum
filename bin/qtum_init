@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -ex
+
+# This shouldn't be in the Dockerfile or containers built from the same image
+# will have the same credentials.
+if [ ! -e "$HOME/.qtum/qtum.conf" ]; then
+    mkdir -p $HOME/.qtum
+
+    echo "Creating qtum.conf"
+
+    # Seed a random password for JSON RPC server
+    cat <<EOF > $HOME/.qtum/qtum.conf
+disablewallet=${DISABLEWALLET:-1}
+printtoconsole=${PRINTTOCONSOLE:-1}
+rpcuser=${RPCUSER:-qtumrpc}
+rpcpassword=${RPCPASSWORD:-`dd if=/dev/urandom bs=33 count=1 2>/dev/null | base64`}
+# This will allow you to RPC from your localhost outside the container
+rpcallowip=${RPCALLOWIP:-0.0.0.0/0}
+rpcbind=${RPCBIND:-0.0.0.0}
+txindex=${TXINDEX:-1}
+EOF
+
+fi
+
+cat $HOME/.qtum/qtum.conf
+
+echo "Initialization completed successfully"
